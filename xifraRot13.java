@@ -4,9 +4,9 @@
 
 public class xifraRot13 {
     public static void main(String[] args) {
-        char [] alfMay = {'A','B','C','Ç','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z','Á','À','É','È','Ï','Ó','Ú','Ü'};
-        char [] alfMin = {'a','b','c','ç','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z','á','à','é','è','ï','ó','ú','ü',};
-        String prueba = "Hola, me llamo Christopher y soy de Perú.";
+        char [] alfMay = {'A','B','C','Ç','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z','Á','À','É','È','Ï','í','Ó','Ú','Ü'};
+        char [] alfMin = {'a','b','c','ç','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z','á','à','é','è','ï','í','ó','ú','ü',};
+        String prueba = "";
         String vacio = "";
         int numero = 0;
         for (int i = 0; i < prueba.length(); i++){
