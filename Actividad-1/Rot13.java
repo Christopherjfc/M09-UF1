@@ -5,23 +5,19 @@
 public class Rot13 {
 
     public static final char [] ALFMIN = "abcçdefghijklmnñopqrstuvwxyzáàéèïíóúü".toCharArray();
-    public static final char [] ALFMAY = "ABCÇDEFGHIJKLMNÑOPQRSTUVWXYZÁÀÉÈÏíÓÚÜ".toCharArray();
+    public static final char [] ALFMAY = "ABCÇDEFGHIJKLMNÑOPQRSTUVWXYZÁÀÉÈÏÍÓÚÜ".toCharArray();
 
-    public static int numCaracter(char[] alfabeto, char caracter) {
-        int numero = -1; 
+    public static int numCaracter(char[] alfabeto, char caracter) { 
         for (int i = 0; i < alfabeto.length; i++) {
             if(alfabeto[i] == caracter) {
-                numero = i; // Posicion donde se encuentra el carácter  en el char[]
+                return i; // retorna posición donde se encuentra el carácter  en el char[]
             }
         }
-        return numero; // Retornarà -1 si no lo encuentra y si lo encuentra retornará la posición de la i.
+        return -1; // Retornarà -1 si no lo encuentra.
     } 
 
     public static boolean esTroba(char[] alfabeto,char caracter){ 
-        if (numCaracter(alfabeto, caracter) != -1|| numCaracter(alfabeto, caracter) != -1) {
-            return true;
-        }
-        return false; // retornará false si no encuentra el carácter en el char[]
+        return numCaracter(alfabeto, caracter) != -1;  // retornará true si se encuentra el carácter en el char[]
     }
 
 
@@ -60,7 +56,7 @@ public class Rot13 {
                 } else if(Character.isUpperCase(caracter)){ // LETRAS MAYÚSCULAS
                     int resultadoMay = (numCaracter(ALFMAY, caracter) - 13) % ALFMAY.length;
                     if(resultadoMay < 0) {
-                        vacio.append(ALFMAY[ALFMIN.length + resultadoMay]);
+                        vacio.append(ALFMAY[ALFMAY.length + resultadoMay]);
                     } else {
                         vacio.append(ALFMAY[resultadoMay]);
                     }
