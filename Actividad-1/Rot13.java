@@ -4,6 +4,9 @@
 
 public class Rot13 {
 
+    public static final char [] ALFMIN = "abcçdefghijklmnñopqrstuvwxyzáàéèïíóúü".toCharArray();
+    public static final char [] ALFMAY = "ABCÇDEFGHIJKLMNÑOPQRSTUVWXYZÁÀÉÈÏíÓÚÜ".toCharArray();
+
     public static int numCaracter(char[] alfabeto, char caracter) {
         int numero = -1; 
         for (int i = 0; i < alfabeto.length; i++) {
@@ -23,18 +26,16 @@ public class Rot13 {
 
 
     public static String xifraRot13(String prueba) {
-        char [] alfMin = "abcçdefghijklmnñopqrstuvwxyzáàéèïíóúü".toCharArray();
-        char [] alfMay = "ABCÇDEFGHIJKLMNÑOPQRSTUVWXYZÁÀÉÈÏíÓÚÜ".toCharArray();
         StringBuilder vacio = new StringBuilder();
         for (int i = 0; i < prueba.length(); i++){
             char caracter = prueba.charAt(i);
-            if(esTroba(alfMin, caracter)|| esTroba(alfMay, caracter)){ // true si lo encuentra
+            if(esTroba(ALFMIN, caracter)|| esTroba(ALFMAY, caracter)){ // true si lo encuentra
                 if(Character.isLowerCase(caracter)){ // letras minúsculas
-                    int resultadoMin = (numCaracter(alfMin, caracter) + 13) % alfMin.length;
-                    vacio.append(alfMin[resultadoMin]);                 
+                    int resultadoMin = (numCaracter(ALFMIN, caracter) + 13) % ALFMIN.length;
+                    vacio.append(ALFMIN[resultadoMin]);                 
                 } else if(Character.isUpperCase(caracter)){ // LETRAS MAYÚSCULAS
-                    int resultadoMay = (numCaracter(alfMay, caracter) + 13) % alfMay.length;
-                    vacio.append(alfMay[resultadoMay]);
+                    int resultadoMay = (numCaracter(ALFMAY, caracter) + 13) % ALFMAY.length;
+                    vacio.append(ALFMAY[resultadoMay]);
                 }
             } else {
                 vacio.append(caracter);
@@ -45,25 +46,23 @@ public class Rot13 {
     
 
     public static String desxifraRot13(String prueba) {
-        char [] alfMin = "abcçdefghijklmnñopqrstuvwxyzáàéèïíóúü".toCharArray();
-        char [] alfMay = "ABCÇDEFGHIJKLMNÑOPQRSTUVWXYZÁÀÉÈÏíÓÚÜ".toCharArray();
         StringBuilder vacio = new StringBuilder();
         for (int i = 0; i < prueba.length(); i++){
             char caracter = prueba.charAt(i);
-            if(esTroba(alfMin, caracter)|| esTroba(alfMay, caracter)){ // true si lo encuentra
+            if(esTroba(ALFMIN, caracter)|| esTroba(ALFMAY, caracter)){ // true si lo encuentra
                 if(Character.isLowerCase(caracter)){ // letras pequeñas
-                    int resultadoMin = (numCaracter(alfMin, caracter) - 13) % alfMin.length;
+                    int resultadoMin = (numCaracter(ALFMIN, caracter) - 13) % ALFMIN.length;
                     if(resultadoMin < 0) {
-                        vacio.append(alfMin[alfMin.length + resultadoMin]);
+                        vacio.append(ALFMIN[ALFMIN.length + resultadoMin]);
                     } else {
-                        vacio.append(alfMin[resultadoMin]);
+                        vacio.append(ALFMIN[resultadoMin]);
                     }                        
                 } else if(Character.isUpperCase(caracter)){ // LETRAS MAYÚSCULAS
-                    int resultadoMay = (numCaracter(alfMay, caracter) - 13) % alfMay.length;
+                    int resultadoMay = (numCaracter(ALFMAY, caracter) - 13) % ALFMAY.length;
                     if(resultadoMay < 0) {
-                        vacio.append(alfMay[alfMin.length + resultadoMay]);
+                        vacio.append(ALFMAY[ALFMIN.length + resultadoMay]);
                     } else {
-                        vacio.append(alfMay[resultadoMay]);
+                        vacio.append(ALFMAY[resultadoMay]);
                     }
                 }
             }else {
