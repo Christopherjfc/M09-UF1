@@ -70,18 +70,16 @@ public class RotX {
 
     public static void forcaBrutaRotX(String cifrado){
         for (int i = 0; i < ALFMAY.length; i++) {
-            System.out.println(desxifraRotX(cifrado, i));
+            System.out.printf("%s  ->  %d%n",desxifraRotX(cifrado, i), i);
         }
     }
 
 
     public static void main(String[] args) {
-        String[] pruebas = {"HoLa coMo eTáS!!!!", "AZSCÈÂ23", "Soy Christopher, tengo 20 años!",
-                            "pingüino", "una excelente prueba", "Quentin Tarantino"};
-        System.out.printf("      %-35s    %-35s    %-35s%n", "TEXTO ORIGINAL", "TEXTO CIFRADO", "TEXTO DESCIFRADO");
+        String[] pruebas = {"Hola Lishiii"};
         System.out.println("--------------------------------------------------------------------------------------------------------------");
         for (String prueba : pruebas) {
-            String cifrado = xifraRotX(prueba, 5);
+            String cifrado = xifraRotX(prueba, 154);
             forcaBrutaRotX(cifrado);
             
         }    
