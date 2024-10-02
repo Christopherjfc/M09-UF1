@@ -80,11 +80,11 @@ public class RotX {
         System.out.printf("      %-35s    %-35s    %-35s%n", "TEXTO ORIGINAL", "TEXTO CIFRADO", "TEXTO DESCIFRADO");
         System.out.println("--------------------------------------------------------------------------------------------------------------");
         for (String prueba : pruebas) {
-            String cifrado = xifraRotX(prueba, 24);
-            String descifrado = desxifraRotX(cifrado, 24);
+            String cifrado = xifraRotX(prueba, 254);
+            String descifrado = desxifraRotX(cifrado, 254);
             System.out.printf("%-35s => %-35s => %-35s%n", prueba, cifrado, descifrado);
             System.out.println();
-            forcaBrutaRotX(descifrado);
+            forcaBrutaRotX(cifrado);
             System.out.println();
         }
     }
