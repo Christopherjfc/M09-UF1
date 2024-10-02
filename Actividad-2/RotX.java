@@ -76,7 +76,7 @@ public class RotX {
 
 
     public static void main(String[] args) {
-        String[] pruebas = {"Hola Lishiii"};
+        String[] pruebas = {"Hola, soy Christopher Flores!"};
         System.out.println("--------------------------------------------------------------------------------------------------------------");
         for (String prueba : pruebas) {
             String cifrado = xifraRotX(prueba, 154);
