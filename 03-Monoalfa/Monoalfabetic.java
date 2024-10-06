@@ -19,10 +19,6 @@ public class Monoalfabetic {
     }
 
 
-    /*
-     * Generar una LISTA de CHARACTER pasarle el metodo shuffle y retornar 
-     * un char[]
-     */
     public static char[] permutaAlfabet(char[] alfabeto){
         List<Character> lista = new ArrayList<>();
         for(char caracter: alfabeto){
@@ -37,35 +33,56 @@ public class Monoalfabetic {
     }
 
 
-    /*
-     * En xifraMonoAlfa tendremos que encontrar en numero de posicion que 
-     * sacaremos del caracter del texto y en el texto original, luego 
-     * con esa misma posicion agarraremos el alfabetoMutado y lo sustituiremos con esa misma 
-     * posición.
-     * 
-     */
+    public static char[] alfMutatMin = permutaAlfabet(ALFMIN);
+    public static char[] alfMutatMay = permutaAlfabet(ALFMAY);
+
+
     public static String xifraMonoAlfa(String texto){
         StringBuilder vacio = new StringBuilder();
-
+        for (int i = 0; i < texto.length(); i++) {
+            char caracter = texto.charAt(i);
+            if(esTroba(ALFMIN, caracter)|| esTroba(ALFMAY, caracter)){ // true si lo encuentra
+                if(Character.isLowerCase(caracter)){ // letras minúsculas
+                    vacio.append(alfMutatMin[numCaracter(ALFMIN, caracter)]); // Ubica la posición del caracter en el alfabeto original y reemplaza esa posición en el alfabeto permutado               
+                } else if(Character.isUpperCase(caracter)){
+                    vacio.append(alfMutatMay[numCaracter(ALFMAY, caracter)]);
+                }
+            } else {
+                vacio.append(caracter);
+            }
+        }
         return vacio.toString();
     }
     
     
-    /*
-     * 
-     */
     public static String desxifraMonoAlfa(String texto){
-        StringBuilder vacio = new StringBuilder();
-
+         StringBuilder vacio = new StringBuilder();
+        for (int i = 0; i < texto.length(); i++) {
+            char caracter = texto.charAt(i);
+            if(esTroba(ALFMIN, caracter)|| esTroba(ALFMAY, caracter)){ // true si lo encuentra
+                if(Character.isLowerCase(caracter)){ // letras minúsculas
+                    vacio.append(ALFMIN[numCaracter(alfMutatMin, caracter)]); // Ubica la posición del caracter en el alfabeto permutado y reemplaza esa posición en el alfabeto original               
+                } else if(Character.isUpperCase(caracter)){
+                    vacio.append(ALFMAY[numCaracter(alfMutatMay, caracter)]);
+                }
+            } else {
+                vacio.append(caracter);
+            }
+        }
         return vacio.toString();
     }
 
     
     public static void main(String[] args) {
-        char[] alfdes = permutaAlfabet(ALFMIN);
-        for (char c : alfdes) {
-            System.out.print(c);
+        String[] pruebas = {"Hola cÓmo Estás!", "Java-17", "Soy Christopher Flores", "Tengo 20 años!",
+                            "pingüino", "una excelente prueba", "Quentin Tarantino"};
+        System.out.printf("      %-35s    %-35s    %-35s%n", "TEXTO ORIGINAL", "TEXTO CIFRADO", "TEXTO DESCIFRADO");
+        System.out.println("--------------------------------------------------------------------------------------------------------------");
+
+        for (String prueba : pruebas) {
+            String cifrado = xifraMonoAlfa(prueba);
+            String descifrado = desxifraMonoAlfa(cifrado);
+            System.out.printf("%-35s => %-35s => %-35s%n", prueba, cifrado, descifrado);
         }
-        System.out.println();
     }
 }
