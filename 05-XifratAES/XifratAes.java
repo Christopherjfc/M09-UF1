@@ -100,6 +100,5 @@ public class XifratAes {
             System.out.println("Enc: " + new String(bXifrats));
             System.out.println("DEC: " + desxifrat);
         }
-        System.out.println(); 
     }
 }
