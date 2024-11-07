@@ -3,11 +3,35 @@ package iticbcn.xifratge;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-public class XifradorMonoalfabetic {
+public class XifradorMonoalfabetic implements Xifrador{
     public static final char[] ALFMIN = "abcçdefghijklmnñopqrstuvwxyzáàéèïíóúü".toCharArray();
     public static final char[] ALFMAY = "ABCÇDEFGHIJKLMNÑOPQRSTUVWXYZÁÀÉÈÏÍÓÚÜ".toCharArray();
     
-    public static int numCaracter(char[] alfabeto, char caracter) { 
+    public char[] alfMutatMay;
+    public char[] alfMutatMin;
+
+    public XifradorMonoalfabetic(){
+        this.alfMutatMin = permutaAlfabet(ALFMIN);
+        this.alfMutatMay = permutaAlfabet(ALFMAY);
+    }
+
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        if (clau != null) {
+            throw new ClauNoSuportada("Xifratxe monoalfabètic no suporta clau != null");
+        }
+        String cifrado = xifraMonoAlfa(msg);
+        return new TextXifrat(cifrado.getBytes()); 
+    }
+    
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada{
+        if (clau != null) {
+            throw new ClauNoSuportada("Xifratxe monoalfabètic no suporta clau != null");
+        }
+        String textXifrat = new String(xifrat.getBytes());
+        return desxifraMonoAlfa(textXifrat);
+    }
+
+    public int numCaracter(char[] alfabeto, char caracter) { 
         for (int i = 0; i < alfabeto.length; i++) {
             if(alfabeto[i] == caracter) {
                 return i; // retorna posición donde se encuentra el carácter  en el char[]
@@ -16,11 +40,11 @@ public class XifradorMonoalfabetic {
         return -1; // Retornarà -1 si no lo encuentra.
     }
 
-    public static boolean esTroba(char[] alfabeto,char caracter){ 
+    public boolean esTroba(char[] alfabeto,char caracter){ 
         return numCaracter(alfabeto, caracter) != -1;  // retornará true si se encuentra el carácter en el char[]
     }
 
-    public static char[] permutaAlfabet(char[] alfabeto){
+    public char[] permutaAlfabet(char[] alfabeto){
         List<Character> lista = new ArrayList<>();
         for(char caracter: alfabeto){
             lista.add(caracter); // añadiendo todo el alfabeto original a la lista
@@ -33,10 +57,7 @@ public class XifradorMonoalfabetic {
         return alfrandom; //retorna el char[] con el alfabeto desordenado;
     }
 
-    public static char[] alfMutatMin = permutaAlfabet(ALFMIN);
-    public static char[] alfMutatMay = permutaAlfabet(ALFMAY);
-
-    public static String xifraMonoAlfa(String texto){
+    public String xifraMonoAlfa(String texto){
         StringBuilder vacio = new StringBuilder();
         for (int i = 0; i < texto.length(); i++) {
             char caracter = texto.charAt(i);
@@ -53,7 +74,7 @@ public class XifradorMonoalfabetic {
         return vacio.toString();
     }
     
-    public static String desxifraMonoAlfa(String texto){
+    public String desxifraMonoAlfa(String texto){
          StringBuilder vacio = new StringBuilder();
         for (int i = 0; i < texto.length(); i++) {
             char caracter = texto.charAt(i);

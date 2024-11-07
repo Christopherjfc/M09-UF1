@@ -3,10 +3,45 @@ package iticbcn.xifratge;
  * ROTX
  */
 
-public class XifradorRotX {
+public class XifradorRotX implements Xifrador{
 
     public static final char [] ALFMIN = "abcçdefghijklmnñopqrstuvwxyzáàéèïíóúü".toCharArray();
     public static final char [] ALFMAY = "ABCÇDEFGHIJKLMNÑOPQRSTUVWXYZÁÀÉÈÏÍÓÚÜ".toCharArray();
+
+
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        int desplazamiento = validaNumClau(clau);
+        if (desplazamiento == -1) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        }
+        String cifratRotX = xifraRotX(msg, desplazamiento); //obté el xifrat
+        return new TextXifrat(cifratRotX.getBytes()); // agafa els bytes del xifrat
+    }
+
+    public String desxifra(TextXifrat cifrado, String clau) throws ClauNoSuportada {
+        int desplazamiento = validaNumClau(clau);
+        if (desplazamiento == -1) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        }
+        String textXifrat = new String(cifrado.getBytes()); // agafa els bytes del xifrat
+        return desxifraRotX(textXifrat, desplazamiento);
+    }
+
+    public int validaNumClau(String clau) {
+        try {
+            int desplazamiento = Integer.parseInt(clau);
+            if (desplazamiento >=0 && desplazamiento <=40) return desplazamiento;
+        } catch (NumberFormatException e) {
+            return -1; // si la conversión es erronea, retorna -1
+        }
+        return -1; // si no está en el rango establecido retorna -1
+    }
+
+
+
+
+
+
 
     public static int numCaracter(char[] alfabeto, char caracter) { 
         for (int i = 0; i < alfabeto.length; i++) {

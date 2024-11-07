@@ -7,13 +7,24 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class XifradorPolialfabetic {
+public class XifradorPolialfabetic implements Xifrador{
     public static final char[] ALFMIN = "abcçdefghijklmnñopqrstuvwxyzáàéèïíóúü".toCharArray();
     public static final char[] ALFMAY = "ABCÇDEFGHIJKLMNÑOPQRSTUVWXYZÁÀÉÈÏÍÓÚÜ".toCharArray();
     public static char[] alfMutatMin;
     public static char[] alfMutatMay;
-    private static final int SEED = 129879846;
     public static Random random = new Random();
+    
+    public static long validaLongCau(String clau, boolean esXifrat) throws ClauNoSuportada{
+        try {
+            return Long.parseLong(clau);
+        } catch (NumberFormatException e) {
+            if (esXifrat) {
+                throw new ClauNoSuportada("La clau per xifrat Polialfabètic ha de ser un String convertible a long");
+            } else {
+                throw new ClauNoSuportada("La clau de Polialfabètic ha de ser un String convertible a long");
+            }
+        }
+    }
     
     public static int numCaracter(char[] alfabeto, char caracter) { 
         for (int i = 0; i < alfabeto.length; i++) {
@@ -28,7 +39,7 @@ public class XifradorPolialfabetic {
         return numCaracter(alfabeto, caracter) != -1;  // retornará true si se encuentra el carácter en el char[]
     }
     
-    public static void initRandom(int clau) {
+    public static void initRandom(long clau) {
         random = new Random(clau);
     }
 
@@ -91,4 +102,28 @@ public class XifradorPolialfabetic {
         }
         return vacio.toString();
     } 
+
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        try {
+           long seed = validaLongCau(clau, true);
+           initRandom(seed);
+           String cifrado = xifraPoliAlfa(msg);
+           return new TextXifrat(cifrado.getBytes()); 
+        } catch (ClauNoSuportada e) {
+            throw e;
+        }
+    }
+    
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada{
+        try{
+            long seed = validaLongCau(clau, false);
+           initRandom(seed);
+           String textXifrat = new String(xifrat.getBytes());
+           return desxifraPoliAlfa(textXifrat);
+        } catch (ClauNoSuportada e) {
+            throw e;
+        }
+
+    }
+    
 }

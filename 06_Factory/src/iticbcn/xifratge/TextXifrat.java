@@ -17,11 +17,7 @@ package iticbcn.xifratge;
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bytes) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
+        return new String(bytes);
     }
 }
 
