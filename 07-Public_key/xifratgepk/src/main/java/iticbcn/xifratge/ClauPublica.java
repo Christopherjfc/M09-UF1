@@ -4,7 +4,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-
+import java.security.SecureRandom;
 import javax.crypto.Cipher;
 
 public class ClauPublica {
@@ -12,8 +12,11 @@ public class ClauPublica {
         // genero una clave utilizando el algoritmo "RSA"
         KeyPairGenerator clau = KeyPairGenerator.getInstance("RSA");
 
-        // especifico el tamaño de la llave en bits
-        clau.initialize(2048);
+        // cre una instancia de SecureRandom
+        SecureRandom secureRandom = new SecureRandom();
+
+        // especifico el tamaño de la llave en bits y le añado el secureRandom, que generará un numero aleatorio seguro
+        clau.initialize(2048, secureRandom);
 
         // genero el KeyPair y lo retorno
         KeyPair keyPair = clau.generateKeyPair();
